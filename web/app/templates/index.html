@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block container %}
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Parsons Programming Puzzles</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="parsons-problem">
+      <ul id="papr" class="list-group">
+          {% for line in problem %}
+          <li class="list-group-item highlight list-group-item-container" id="papr-row-{{ line[0] }}">
+            <div class="list-group-item-status">&nbsp;</div>
+            <code class="list-group-item-code" data-code-line="{{ line[0] }}"><span class="tabs" data-num-tabs="0"></span>{{ line[1]|safe }}</code>
+            <div class="list-group-item-button-group">
+              <button class="btn btn-default list-group-item-button-left papr-btn-left" role="button">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-default list-group-item-button-right papr-btn-right" role="button">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </button>
+              <div class="handle list-group-item-button-reorder">
+                <span class="handle glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <button id="check-solution-button">Check solution!</button>
+  </div>
+</div>
+{% endblock %}

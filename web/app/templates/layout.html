@@ -1,0 +1,25 @@
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/dragula.3.7.2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/pygments.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script src="{{ url_for('static', filename='js/dragula.3.7.2.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
+{% block title %}Flask example APP{% endblock %}
+
+{% block content %}
+<div class="container">
+{% block container %}{% endblock %}
+</div>
+{% endblock %}
