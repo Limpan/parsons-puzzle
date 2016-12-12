@@ -1,10 +1,11 @@
+import os
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from ..parsons import CustomHtmlFormatter
 
 
 def problem():
-    with open('./problem.py', 'r') as file:
+    with open('problem.py', 'r') as file:
         code = file.read()
         html = highlight(code, PythonLexer(), CustomHtmlFormatter())
 

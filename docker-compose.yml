@@ -1,0 +1,11 @@
+version: '2'
+services:
+  web:
+    build: ./web
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web:/code
+    env_file: .env
+    command:
+      ./manage.py run --host 0.0.0.0 --debugger --reload
