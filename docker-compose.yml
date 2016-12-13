@@ -9,3 +9,10 @@ services:
     env_file: .env
     command:
       ./manage.py run --host 0.0.0.0 --debugger --reload
+    depends_on:
+      - db
+  db:
+    build: ./postgres
+    expose:
+      - 5432
+    env_file: .env
