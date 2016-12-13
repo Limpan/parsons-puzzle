@@ -1,7 +1,9 @@
 from flask import current_app, session, render_template, request, jsonify, abort
 from . import main
+from ..models import Puzzle, Reward, Role, User
 from .problem import problem
 import random
+
 
 @main.route('/')
 def index():

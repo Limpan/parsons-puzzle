@@ -15,21 +15,21 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or \
-        'postgresql+psycopg2://postgres:secretpassword@localhost/development'
+        'postgresql+psycopg2://postgres:secretpassword@db/development'
 
 
 class TestingConfig(Config):
     TESTING = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or \
-        'postgresql+psycopg2://postgres:secretpassword@localhost/testing'
+        'postgresql+psycopg2://postgres:secretpassword@db/testing'
 
 
 class ProductionConfig(Config):
     pass
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \
-        'postgresql+psycopg2://postgres:secretpassword@localhost/postgres'
+        'postgresql+psycopg2://postgres:secretpassword@db/postgres'
 
 
 config = {

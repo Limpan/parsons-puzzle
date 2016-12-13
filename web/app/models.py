@@ -1,5 +1,13 @@
 from flask import current_app
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
+from sqlalchemy_utils import ArrowType
+
+
+association_reward_user = db.Table(
+    'association',
+    db.Column('reward_id', db.Integer, db.ForeignKey('rewards.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
 
 
 class Permission:
@@ -22,8 +30,8 @@ class Role(db.Model):
         """Initializes user roles."""
         roles = {
             'Student': (0, True),
-            'Moderator' : (Permission.SUBMIT_PUZZLE |
-                           Permission.EDIT_PUZZLE, False),
+            'Moderator': (Permission.SUBMIT_PUZZLE |
+                          Permission.EDIT_PUZZLE, False),
             'Administrator': (0xff, False)
         }
 
@@ -48,6 +56,10 @@ class User(db.Model):
     screen_name = db.Column(db.String(64))
     password_hash = db.Column(db.String(128), default=None)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    rewards = db.relationship(
+        'Reward',
+        secondary=association_reward_user,
+        back_populates='users')
 
     def __init__(self, **kwargs):
         """Assign the user proper roles."""
@@ -80,3 +92,25 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.email)
+
+
+class Puzzle(db.Model):
+    """Model of the puzzles."""
+    __tablename__ = 'puzzles'
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.Text)
+    puzzle = db.Column(db.Text)
+    reward = db.relationship('Reward', backref='puzzle', lazy='dynamic')
+
+
+class Reward(db.Model):
+    """Model of puzzle rewards."""
+    __tablename__ = 'rewards'
+    id = db.Column(db.Integer, primary_key=True)
+    points = db.Column(db.Integer)
+    completed = db.Column(ArrowType)
+    puzzle_id = db.Column(db.Integer, db.ForeignKey('puzzles.id'))
+    users = db.relationship(
+        'User',
+        secondary=association_reward_user,
+        back_populates='rewards')

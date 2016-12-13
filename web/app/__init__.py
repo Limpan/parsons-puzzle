@@ -9,6 +9,7 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 migrate = Migrate()
 
+
 def create_app(config_name):
     """Application factory, see docs."""
     app = Flask(__name__)
