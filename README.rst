@@ -27,3 +27,9 @@ commands inside the web container. The `manage.py` script could be run this way.
 
 When the containers have started you should be able to view the application
 with your web browser at `127.0.0.1:5000 <http://127.0.0.1:5000>`_.
+
+
+Common gotchas
+--------------
+When making significant changes to the project, it's a good idea to rebuild the docker containers.
+:code:`docker-compose up --build` let you build and restart in one command.
